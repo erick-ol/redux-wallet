@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setUserEmail } from '../reducers/user';
+import { setUserEmail } from '../actions';
 import validate from '../helper/validate';
 
 const Login = () => {

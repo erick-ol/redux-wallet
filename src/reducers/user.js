@@ -1,15 +1,17 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { createSlice } from '@reduxjs/toolkit';
+import { SET_EMAIL } from '../actions';
 
-const slice = createSlice({
-  name: 'user',
-  initialState: {
-    email: '',
-  },
-  reducers: {
-    setUserEmail: (state, action) => { state.email = action.payload; },
-  },
-});
+const initialState = {
+  email: '',
+};
 
-export const { setUserEmail } = slice.actions;
-export default slice.reducer;
+const user = (state = initialState, action) => {
+  switch (action.type) {
+  case SET_EMAIL:
+    return { ...state, email: action.payload };
+  default:
+    return state;
+  }
+};
+
+export default user;
