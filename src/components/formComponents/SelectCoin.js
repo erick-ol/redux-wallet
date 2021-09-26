@@ -1,26 +1,40 @@
-import React, { useEffect } from 'react';
-import useFetch from '../../hooks/useFetch';
+import React from 'react';
+import { useDispatch, connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setFormCoin } from '../../actions';
 
-const SelectCoin = () => {
-  const { request, data } = useFetch();
-
-  useEffect(() => {
-    request('https://economia.awesomeapi.com.br/json/all');
-  }, [request]);
+const SelectCoin = ({ coin, data }) => {
+  const dispatch = useDispatch();
 
   return (
     <label htmlFor="coin">
       Moeda
-      <select name="coin" id="coin">
+      <select
+        name="coin"
+        id="coin"
+        value={ coin }
+        onChange={ ({ target }) => dispatch(setFormCoin(target.value)) }
+      >
         { data !== null
           && Object.keys(data)
-            .filter((coin) => (coin !== 'USDT') && (coin !== 'DOGE'))
-            .map((coin, index) => (
-              <option key={ index }>{coin}</option>
+            .filter((singleCoin) => (singleCoin !== 'USDT') && (singleCoin !== 'DOGE'))
+            .map((singleCoin, index) => (
+              <option key={ index }>{singleCoin}</option>
             )) }
       </select>
     </label>
   );
 };
 
-export default SelectCoin;
+SelectCoin.propTypes = {
+  coin: PropTypes.string.isRequired,
+  data: PropTypes.shape([]),
+};
+
+SelectCoin.defaultProps = {
+  data: [],
+};
+
+const mapStateToProps = (state) => ({ coin: state.form.coin });
+
+export default connect(mapStateToProps)(SelectCoin);
