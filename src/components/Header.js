@@ -2,12 +2,27 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Header = ({ email, total = 0 }) => {
+const Header = ({ email, expenses = [] }) => {
   const [totalValue, setTotalValue] = useState(0);
 
   useEffect(() => {
-    setTotalValue(total);
-  }, [total]);
+    if (expenses === []) {
+      setTotalValue(0);
+    } else {
+      const expenseValues = expenses.map((exp) => {
+        const {
+          value,
+          currency,
+          exchangeRates,
+        } = exp;
+
+        const result = value * exchangeRates[currency].ask;
+        return (result);
+      });
+      const result = expenseValues.reduce((total, value) => total + value, 0);
+      setTotalValue(Math.round(result * 100) / 100);
+    }
+  }, [expenses]);
 
   return (
     <header>
@@ -22,10 +37,10 @@ const Header = ({ email, total = 0 }) => {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  expenses: PropTypes.shape([]).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  email: state.user.email, total: state.wallet.total });
+  email: state.user.email, expenses: state.wallet.expenses });
 
 export default connect(mapStateToProps)(Header);

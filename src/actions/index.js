@@ -34,8 +34,10 @@ export const setFormTag = (payload) => (
 );
 
 // wallet
-export const CREATE_EXPENSE = 'wallet/CREATE_EXPENSE';
 export const SET_TOTAL = 'wallet/SET_TOTAL';
+export const ERASE_TOTAL = 'wallet/ERASE_TOTAL';
+export const CREATE_EXPENSE = 'wallet/CREATE_EXPENSE';
+export const ERASE_EXPENSE = 'wallet/ERASE_EXPENSE';
 
 export const createExpense = (payload) => (
   { type: CREATE_EXPENSE, payload }
@@ -43,4 +45,12 @@ export const createExpense = (payload) => (
 
 export const setTotal = (payload) => (
   { type: SET_TOTAL, payload }
+);
+
+export const eraseTotal = (payload) => (
+  { type: ERASE_TOTAL, payload }
+);
+
+export const eraseExpense = (payload) => (
+  { type: ERASE_EXPENSE, payload }
 );
