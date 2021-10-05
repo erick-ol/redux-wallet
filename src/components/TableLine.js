@@ -39,7 +39,7 @@ const TableLine = ({ expenses }) => {
               <td>Real</td>
               <td>
                 <button type="button">Editar</button>
-                <EraseBtn spend={ spend } value={ exchangeRates[currency].ask * value } />
+                <EraseBtn spend={ spend } />
               </td>
             </tr>
           );

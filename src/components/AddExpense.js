@@ -6,7 +6,7 @@ import InputDescription from './formComponents/InputDescription';
 import SelectCoin from './formComponents/SelectCoin';
 import SelectTag from './formComponents/SelectTag';
 import SelectPayment from './formComponents/SelectPayment';
-import { createExpense, setTotal } from '../actions';
+import { createExpense } from '../actions';
 import useFetch from '../hooks/useFetch';
 
 const AddExpense = ({
@@ -36,7 +36,6 @@ const AddExpense = ({
       tag,
       exchangeRates: data,
     };
-    dispatch(setTotal(parseFloat(value) * parseFloat(data[coin].ask)));
     dispatch(createExpense(expense));
   };
 
